@@ -1,0 +1,118 @@
+name: "Default Quadcopter"
+description: "Standard quadcopter configuration for testing"
+
+# Physical properties
+physics:
+  mass: 1.5  # kg
+  inertia: [0.02, 0.02, 0.04]  # kg⋅m² [Ixx, Iyy, Izz]
+  
+# Propeller configuration
+propellers:
+  count: 4
+  layout: "quad_x"  # quad_x, quad_plus, hex, octo
+  
+  # Individual propeller settings
+  motors:
+    - id: 0
+      position: [0.2, 0.2, 0.0]    # [x, y, z] from CG
+      orientation: [0.0, 0.0, -1.0]  # thrust direction
+      propeller:
+        diameter: 0.24  # meters
+        pitch: 0.12     # meters
+        blades: 2
+        material: "carbon_fiber"
+        ct_coefficient: 1.1e-5
+        cq_coefficient: 1.9e-6
+        
+    - id: 1
+      position: [-0.2, -0.2, 0.0]
+      orientation: [0.0, 0.0, -1.0]
+      propeller:
+        diameter: 0.24
+        pitch: 0.12
+        blades: 2
+        material: "carbon_fiber"
+        ct_coefficient: 1.1e-5
+        cq_coefficient: 1.9e-6
+        
+    - id: 2
+      position: [-0.2, 0.2, 0.0]
+      orientation: [0.0, 0.0, -1.0]
+      propeller:
+        diameter: 0.24
+        pitch: 0.12
+        blades: 2
+        material: "carbon_fiber"
+        ct_coefficient: 1.1e-5
+        cq_coefficient: 1.9e-6
+        
+    - id: 3
+      position: [0.2, -0.2, 0.0]
+      orientation: [0.0, 0.0, -1.0]
+      propeller:
+        diameter: 0.24
+        pitch: 0.12
+        blades: 2
+        material: "carbon_fiber"
+        ct_coefficient: 1.1e-5
+        cq_coefficient: 1.9e-6
+
+# Control system
+control:
+  default_controller: "pid"
+  
+  pid_gains:
+    position:
+      kp: [1.0, 1.0, 2.0]
+      ki: [0.1, 0.1, 0.2]
+      kd: [0.5, 0.5, 1.0]
+    attitude:
+      kp: [6.0, 6.0, 3.0]
+      ki: [0.1, 0.1, 0.1]
+      kd: [0.3, 0.3, 0.3]
+    rate:
+      kp: [150.0, 150.0, 50.0]
+      ki: [50.0, 50.0, 20.0]
+      kd: [5.0, 5.0, 2.0]
+      
+  limits:
+    max_tilt_angle: 0.5     # radians
+    max_thrust: 20.0        # N
+    min_thrust: 0.0         # N
+    max_angular_rate: 5.0   # rad/s
+
+# Sensors
+sensors:
+  imu:
+    enabled: true
+    noise_gyro: 0.01     # rad/s
+    noise_accel: 0.1     # m/s²
+    bias_gyro: 0.001     # rad/s
+    bias_accel: 0.01     # m/s²
+    
+  gps:
+    enabled: false
+    noise_position: 0.5   # m
+    noise_velocity: 0.1   # m/s
+    
+  barometer:
+    enabled: false
+    noise_altitude: 0.1   # m
+
+# Environment
+environment:
+  gravity: 9.81           # m/s²
+  air_density: 1.225      # kg/m³
+  temperature: 288.15     # K
+  pressure: 101325.0      # Pa
+  
+  wind:
+    enabled: false
+    velocity: [0.0, 0.0, 0.0]  # [vx, vy, vz] m/s
+    turbulence_intensity: 0.0   # 0-1
+
+# Simulation settings
+simulation:
+  dt: 0.002              # seconds
+  real_time_factor: 1.0  # 1.0 = real time
+  max_steps: 1000000 

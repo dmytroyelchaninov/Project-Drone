@@ -1,0 +1,29 @@
+{
+  "name": "Real-time Simulation Session",
+  "start_time": 1750746746.588581,
+  "config": {},
+  "logs": [],
+  "metrics": {},
+  "warnings": [],
+  "errors": [],
+  "system_state": {
+    "timestamp": 1750746746.588581,
+    "cpu_percent": 25.0,
+    "memory_percent": 84.4,
+    "memory_available_gb": 1.2494964599609375,
+    "disk_usage_percent": 79.6,
+    "process_count": 656
+  },
+  "end_time": 1750746757.436855,
+  "duration": 10.848273992538452,
+  "status": "PASSED",
+  "result_data": {},
+  "final_system_state": {
+    "timestamp": 1750746757.4368582,
+    "cpu_percent": 0.0,
+    "memory_percent": 85.3,
+    "memory_available_gb": 1.1745452880859375,
+    "disk_usage_percent": 79.6,
+    "process_count": 656
+  }
+}

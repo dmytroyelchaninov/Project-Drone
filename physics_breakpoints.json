@@ -1,0 +1,425 @@
+[
+  {
+    "id": 1,
+    "type": "Unrealistic Efficiency Values",
+    "severity": "CRITICAL",
+    "issues": [
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: realtime_factors.0.1.efficiency = 2334.513678234492 exceeds 100% efficiency (physically impossible)",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: realtime_factors.0.5.efficiency = 453.6099064510896 exceeds 100% efficiency (physically impossible)",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: realtime_factors.1.0.efficiency = 222.7635764930823 exceeds 100% efficiency (physically impossible)",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: realtime_factors.2.0.efficiency = 116.30491085045615 exceeds 100% efficiency (physically impossible)",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: realtime_factors.5.0.efficiency = 46.00783195305216 exceeds 100% efficiency (physically impossible)",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: realtime_factors.10.0.efficiency = 23.710028264556247 exceeds 100% efficiency (physically impossible)",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: RTF 0.1 efficiency 2334.513678234492 is physically impossible",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: RTF 0.5 efficiency 453.6099064510896 is physically impossible",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: RTF 1.0 efficiency 222.7635764930823 is physically impossible",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Performance Stress Test",
+        "violation": "CRITICAL: RTF 2.0 efficiency 116.30491085045615 is physically impossible",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 0.1.rtf_efficiency = 116.6193299907106 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 0.1.rtf_efficiency = 116.6193299907106x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 0.5.rtf_efficiency = 118.02274178979742 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 0.5.rtf_efficiency = 118.02274178979742x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 1.0.rtf_efficiency = 117.98887710523428 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 1.0.rtf_efficiency = 117.98887710523428x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 2.0.rtf_efficiency = 119.18886969173411 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 2.0.rtf_efficiency = 119.18886969173411x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 5.0.rtf_efficiency = 116.02179746065117 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 5.0.rtf_efficiency = 116.02179746065117x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 10.0.rtf_efficiency = 118.31271332261431 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 10.0.rtf_efficiency = 118.31271332261431x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 20.0.rtf_efficiency = 118.73808175744537 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 20.0.rtf_efficiency = 118.73808175744537x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 50.0.rtf_efficiency = 119.20716214295864 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 50.0.rtf_efficiency = 119.20716214295864x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 100.0.rtf_efficiency = 116.9633017289459 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 100.0.rtf_efficiency = 116.9633017289459x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Integration Method Comparison",
+        "violation": "CRITICAL: euler.efficiency = 849.5275139233576 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Integration Method Comparison",
+        "violation": "CRITICAL: rk2.efficiency = 502.238961621518 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Integration Method Comparison",
+        "violation": "CRITICAL: rk4.efficiency = 183.30125626547243 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Integration Method Comparison",
+        "violation": "CRITICAL: adaptive_rk45.efficiency = 404.3127171344092 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Concurrent Simulation Load",
+        "violation": "CRITICAL: 2.efficiency = 1.8609017959016625 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Concurrent Simulation Load",
+        "violation": "CRITICAL: 4.efficiency = 3.439320855613617 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Concurrent Simulation Load",
+        "violation": "CRITICAL: 8.efficiency = 5.796634796488584 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Concurrent Simulation Load",
+        "violation": "CRITICAL: 16.efficiency = 11.039509661431268 exceeds 100% efficiency (physically impossible)",
+        "file": "performance_benchmark_results.json"
+      }
+    ],
+    "action": "Cap efficiency values at 100% and review calculation logic",
+    "fix_strategy": "Implement efficiency bounds checking in simulation core",
+    "implementation": [
+      "Add efficiency validation in performance calculations",
+      "Review energy balance equations",
+      "Implement physical efficiency limits based on drone type",
+      "Add warning system for efficiency approaching limits"
+    ]
+  },
+  {
+    "id": 2,
+    "type": "Unrealistic Real-Time Factors",
+    "severity": "CRITICAL",
+    "issues": [
+      {
+        "suite": "Advanced Tests",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: real_time_factor = 1442994.495412844 ratio violates Real-time factor should be between 0.01x and 100x",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: real_time_factor = 1442994.495412844x real-time is unrealistic for accurate simulation",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Time Step Scaling",
+        "violation": "CRITICAL: 0.005.real_time_factor = 210.0134190550582 ratio violates Real-time factor should be between 0.01x and 100x",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Time Step Scaling",
+        "violation": "CRITICAL: 0.005.real_time_factor = 210.0134190550582x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Time Step Scaling",
+        "violation": "CRITICAL: 0.01.real_time_factor = 456.4334606553274 ratio violates Real-time factor should be between 0.01x and 100x",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Time Step Scaling",
+        "violation": "CRITICAL: 0.01.real_time_factor = 456.4334606553274x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Time Step Scaling",
+        "violation": "CRITICAL: 0.02.real_time_factor = 894.9184944951779 ratio violates Real-time factor should be between 0.01x and 100x",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Time Step Scaling",
+        "violation": "CRITICAL: 0.02.real_time_factor = 894.9184944951779x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 1.0.achieved_rtf = 117.98887710523428x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 2.0.achieved_rtf = 238.37773938346822x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 5.0.achieved_rtf = 580.1089873032558x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 10.0.achieved_rtf = 1183.127133226143x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 20.0.achieved_rtf = 2374.7616351489073x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 50.0.achieved_rtf = 5960.358107147932x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Real-time Factor Performance",
+        "violation": "CRITICAL: 100.0.achieved_rtf = 11696.33017289459x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 60.real_time_factor = 18232.140838948053 ratio violates Real-time factor should be between 0.01x and 100x",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 60.real_time_factor = 18232.140838948053x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 300.real_time_factor = 40393.28432474078 ratio violates Real-time factor should be between 0.01x and 100x",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 300.real_time_factor = 40393.28432474078x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 600.real_time_factor = 50774.40077475587 ratio violates Real-time factor should be between 0.01x and 100x",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 600.real_time_factor = 50774.40077475587x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 1800.real_time_factor = 63155.603888173195 ratio violates Real-time factor should be between 0.01x and 100x",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 1800.real_time_factor = 63155.603888173195x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 3600.real_time_factor = 64614.458718108915 ratio violates Real-time factor should be between 0.01x and 100x",
+        "file": "performance_benchmark_results.json"
+      },
+      {
+        "suite": "Performance Benchmarks",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: 3600.real_time_factor = 64614.458718108915x real-time is unrealistic for accurate simulation",
+        "file": "performance_benchmark_results.json"
+      }
+    ],
+    "action": "Limit real-time factors to physically meaningful ranges",
+    "fix_strategy": "Implement adaptive time stepping with stability checks",
+    "implementation": [
+      "Add real-time factor bounds (0.01x to 100x)",
+      "Implement adaptive time step control",
+      "Add simulation stability monitoring",
+      "Review numerical integration accuracy vs speed trade-offs"
+    ]
+  },
+  {
+    "id": 3,
+    "type": "Other Physics Violations",
+    "severity": "CRITICAL",
+    "issues": [
+      {
+        "suite": "Advanced Tests",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: quaternion_drift.max = 0.0014899991102319684 N violates Maximum thrust should be between 1 N and 1000 N",
+        "file": "advanced_test_results.json"
+      },
+      {
+        "suite": "Advanced Tests",
+        "test": "Long Duration Stability",
+        "violation": "CRITICAL: quaternion_drift.rate = 4.966663700773228e-06 Hz violates Simulation rate should be between 10 Hz and 100 kHz",
+        "file": "advanced_test_results.json"
+      }
+    ],
+    "action": "Review and fix specific physics violations",
+    "fix_strategy": "Case-by-case analysis and correction",
+    "implementation": [
+      "Analyze each violation individually",
+      "Implement specific fixes based on physics principles",
+      "Add validation tests for corrected behavior",
+      "Document physical assumptions and limitations"
+    ]
+  }
+]

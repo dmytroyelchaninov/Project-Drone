@@ -1,0 +1,46 @@
+drone_sim/
+├── core/                    # Base simulation infrastructure
+│   ├── simulator.py         # Main simulation loop with fixed-time stepping
+│   ├── state_manager.py     # Handles drone state transitions
+│   └── event_system.py      # Pub-sub for parameter changes
+│
+├── physics/                 # Physical modeling
+│   ├── aerodynamics/
+│   │   ├── propeller.py     # Configurable propeller models (per-motor)
+│   │   └── noise_model.py   # Acoustic noise spectrum calculation
+│   ├── rigid_body.py        # 6DOF dynamics
+│   └── environment.py       # Gravity, wind, disturbances
+│
+├── control/                 # Flight control stack
+│   ├── base_controller.py   # Interface for all controllers
+│   ├── pid_controller.py    # Classical PID implementation
+│   ├── mixer.py             # Motor mixing algorithms
+│   └── adaptive/            # ML-ready components
+│       └── rl_interface.py  # Hook for reinforcement learning
+│
+├── sensors/                 # Sensor simulation
+│   ├── imu.py               # With configurable noise
+│   ├── microphone.py        # For noise measurement at points
+│   └── noise_profiles/      # Different noise characteristic presets
+│
+├── analysis/                # Noise optimization tools
+│   ├── fft_processor.py     # Frequency domain analysis
+│   ├── optimizer.py         # Parameter optimization routines
+│   └── metrics.py           # Noise/performance metrics
+│
+├── ui/                      # User interface
+│   ├── web/                 # Future web interface
+│   ├── cli.py               # Command line controls
+│   └── visualizer.py        # 3D PyOpenGL visualization
+│
+├── configs/                 # Parameter configurations
+│   ├── drone_presets/       # Different drone configurations
+│   └── noise_scenarios/     # Predefined noise measurement setups
+│
+├── tests/                   # Testing infrastructure
+│   ├── unit/                # Module tests
+│   └── integration/         # Full system tests
+│
+└── utils/                   # Supporting code
+    ├── math_tools.py        # Vector/matrix operations
+    └── data_logger.py       # CSV/ROS bag output
