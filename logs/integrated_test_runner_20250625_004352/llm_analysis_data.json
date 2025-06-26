@@ -1,0 +1,20 @@
+{
+  "analysis_metadata": {
+    "purpose": "LLM analysis of drone simulation test results",
+    "test_suite": "integrated_test_runner",
+    "timestamp": "2025-06-25T00:44:02.752167",
+    "data_structure_version": "1.0"
+  },
+  "issues_detected": [],
+  "performance_anomalies": [],
+  "error_patterns": [],
+  "warning_patterns": [],
+  "test_failures": [],
+  "recommendations": [],
+  "test_analysis_integrated_test_session": {
+    "test_name": "Integrated Test Session",
+    "status": "COMPLETED",
+    "duration": 10.126179218292236,
+    "issues": []
+  }
+}

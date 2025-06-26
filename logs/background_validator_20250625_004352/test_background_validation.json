@@ -1,0 +1,675 @@
+{
+  "name": "Background Validation",
+  "start_time": 1750826632.619318,
+  "config": {
+    "config": {
+      "validation_interval": 0.05,
+      "anomaly_threshold": 2,
+      "auto_correction": true,
+      "real_time_logging": true,
+      "detailed_reports": true,
+      "physics_context_capture": true,
+      "performance_monitoring": true,
+      "max_queue_size": 1000,
+      "validation_timeout": 30.0
+    },
+    "thread_id": 6107754496
+  },
+  "logs": [
+    {
+      "timestamp": 1750826632.619894,
+      "relative_time": 0.000576019287109375,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "maneuvers_suite",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.619997,
+      "relative_time": 0.00067901611328125,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "Precision Hover",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.669657,
+      "relative_time": 0.0503389835357666,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "Precision Hover",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.669871,
+      "relative_time": 0.050553083419799805,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "Precision Hover",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.6700249,
+      "relative_time": 0.05070686340332031,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "Figure-8 Pattern",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.688728,
+      "relative_time": 0.06941008567810059,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "Figure-8 Pattern",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.688962,
+      "relative_time": 0.06964397430419922,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "Figure-8 Pattern",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.701666,
+      "relative_time": 0.08234810829162598,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "Spiral Climb",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.739773,
+      "relative_time": 0.12045502662658691,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "Spiral Climb",
+        "violations": 0,
+        "warnings": 1,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.7400131,
+      "relative_time": 0.12069511413574219,
+      "step": "anomaly_escalation",
+      "data": {
+        "test_name": "Spiral Climb",
+        "severity": "WARNING",
+        "consecutive_count": 2,
+        "impact": "LOW: Minor physics inconsistency. Monitoring recommended.",
+        "suggested_corrections": {}
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.745536,
+      "relative_time": 0.12621808052062988,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "Spiral Climb",
+        "violations": 0,
+        "warnings": 1,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.7518349,
+      "relative_time": 0.13251686096191406,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "Aggressive Banking",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.753071,
+      "relative_time": 0.13375306129455566,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "Aggressive Banking",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.7532039,
+      "relative_time": 0.13388586044311523,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "Aggressive Banking",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.753641,
+      "relative_time": 0.1343228816986084,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "Formation Flying",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.756554,
+      "relative_time": 0.1372358798980713,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "Formation Flying",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.756654,
+      "relative_time": 0.13733601570129395,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "Formation Flying",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.758829,
+      "relative_time": 0.1395111083984375,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "maneuvers_suite",
+        "violations": 0,
+        "warnings": 1,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.7612648,
+      "relative_time": 0.14194679260253906,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "performance_suite",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826632.766301,
+      "relative_time": 0.14698290824890137,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "Time Step Scaling",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826633.128955,
+      "relative_time": 0.5096368789672852,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "Time Step Scaling",
+        "violations": 6,
+        "warnings": 0,
+        "corrections": 3,
+        "is_valid": false
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826633.552726,
+      "relative_time": 0.9334080219268799,
+      "step": "anomaly_escalation",
+      "data": {
+        "test_name": "Time Step Scaling",
+        "severity": "CRITICAL",
+        "consecutive_count": 2,
+        "impact": "MEDIUM: Critical physics violation. Monitor for recurrence.",
+        "suggested_corrections": {
+          "0.005.real_time_factor": 100.0,
+          "0.01.real_time_factor": 100.0,
+          "0.02.real_time_factor": 100.0
+        }
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826633.59235,
+      "relative_time": 0.9730319976806641,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "Time Step Scaling",
+        "violations": 6,
+        "warnings": 0,
+        "corrections": 3,
+        "is_valid": false
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826633.6542459,
+      "relative_time": 1.0349278450012207,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "Propeller Count Scaling",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826634.746123,
+      "relative_time": 2.126805067062378,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "Propeller Count Scaling",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826634.746433,
+      "relative_time": 2.12711501121521,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "Propeller Count Scaling",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826634.7465,
+      "relative_time": 2.1271820068359375,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "Real-time Factor Performance",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826635.824833,
+      "relative_time": 3.205514907836914,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "Real-time Factor Performance",
+        "violations": 25,
+        "warnings": 0,
+        "corrections": 16,
+        "is_valid": false
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826635.825732,
+      "relative_time": 3.206413984298706,
+      "step": "anomaly_escalation",
+      "data": {
+        "test_name": "Real-time Factor Performance",
+        "severity": "CRITICAL",
+        "consecutive_count": 2,
+        "impact": "MEDIUM: Critical physics violation. Monitor for recurrence.",
+        "suggested_corrections": {
+          "0.1.rtf_efficiency": 100.0,
+          "0.5.rtf_efficiency": 100.0,
+          "1.0.achieved_rtf": 100.0,
+          "1.0.rtf_efficiency": 100.0,
+          "2.0.achieved_rtf": 100.0,
+          "2.0.rtf_efficiency": 100.0,
+          "5.0.achieved_rtf": 100.0,
+          "5.0.rtf_efficiency": 100.0,
+          "10.0.achieved_rtf": 100.0,
+          "10.0.rtf_efficiency": 100.0,
+          "20.0.achieved_rtf": 100.0,
+          "20.0.rtf_efficiency": 100.0,
+          "50.0.achieved_rtf": 100.0,
+          "50.0.rtf_efficiency": 100.0,
+          "100.0.achieved_rtf": 100.0,
+          "100.0.rtf_efficiency": 100.0
+        }
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826635.825783,
+      "relative_time": 3.206465005874634,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "Real-time Factor Performance",
+        "violations": 25,
+        "warnings": 0,
+        "corrections": 16,
+        "is_valid": false
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826635.825889,
+      "relative_time": 3.206571102142334,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "Memory Usage Analysis",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826636.077434,
+      "relative_time": 3.458116054534912,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "Memory Usage Analysis",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826636.077782,
+      "relative_time": 3.4584639072418213,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "Memory Usage Analysis",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826636.084088,
+      "relative_time": 3.4647700786590576,
+      "step": "validation_test_start",
+      "data": {
+        "test_name": "CPU Utilization Analysis",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826640.2810361,
+      "relative_time": 7.661718130111694,
+      "step": "validation_test_step",
+      "data": {
+        "test_name": "CPU Utilization Analysis",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826640.28194,
+      "relative_time": 7.662621974945068,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "CPU Utilization Analysis",
+        "violations": 0,
+        "warnings": 0,
+        "corrections": 0,
+        "is_valid": true
+      },
+      "level": "INFO",
+      "system_state": null
+    },
+    {
+      "timestamp": 1750826640.285079,
+      "relative_time": 7.6657609939575195,
+      "step": "validation_test_end",
+      "data": {
+        "test_name": "performance_suite",
+        "violations": 31,
+        "warnings": 0,
+        "corrections": 19,
+        "is_valid": false
+      },
+      "level": "INFO",
+      "system_state": null
+    }
+  ],
+  "metrics": {},
+  "warnings": [],
+  "errors": [],
+  "system_state": {
+    "timestamp": 1750826632.619318,
+    "cpu_percent": 0.0,
+    "memory_percent": 84.9,
+    "memory_available_gb": 1.2090606689453125,
+    "disk_usage_percent": 80.0,
+    "process_count": 670
+  },
+  "end_time": 1750826642.732646,
+  "duration": 10.113327980041504,
+  "status": "COMPLETED",
+  "result_data": {
+    "validation_stats": {
+      "tests_monitored": 34,
+      "anomalies_detected": 8,
+      "critical_violations": 5,
+      "corrections_applied": 57,
+      "validation_start_time": 1750826632.619156
+    },
+    "anomalies_detected": 8,
+    "summary": {
+      "duration": 10.113374948501587,
+      "validation_rate": 3.3618846500927457,
+      "total_tests_monitored": 34,
+      "total_anomalies": 8,
+      "anomalies_by_severity": {
+        "WARNING": 3,
+        "CRITICAL": 5
+      },
+      "corrections_applied": 57,
+      "test_statistics": {
+        "Spiral Climb": {
+          "anomalies": 2,
+          "severities": [
+            "WARNING",
+            "WARNING"
+          ]
+        },
+        "maneuvers_suite": {
+          "anomalies": 1,
+          "severities": [
+            "WARNING"
+          ]
+        },
+        "Time Step Scaling": {
+          "anomalies": 2,
+          "severities": [
+            "CRITICAL",
+            "CRITICAL"
+          ]
+        },
+        "Real-time Factor Performance": {
+          "anomalies": 2,
+          "severities": [
+            "CRITICAL",
+            "CRITICAL"
+          ]
+        },
+        "performance_suite": {
+          "anomalies": 1,
+          "severities": [
+            "CRITICAL"
+          ]
+        }
+      },
+      "validation_efficiency": 0.03361884650092746,
+      "most_problematic_tests": [
+        {
+          "test_name": "Time Step Scaling",
+          "total_anomalies": 2,
+          "critical_anomalies": 2,
+          "fatal_anomalies": 0,
+          "risk_score": 8
+        },
+        {
+          "test_name": "Real-time Factor Performance",
+          "total_anomalies": 2,
+          "critical_anomalies": 2,
+          "fatal_anomalies": 0,
+          "risk_score": 8
+        },
+        {
+          "test_name": "performance_suite",
+          "total_anomalies": 1,
+          "critical_anomalies": 1,
+          "fatal_anomalies": 0,
+          "risk_score": 4
+        },
+        {
+          "test_name": "Spiral Climb",
+          "total_anomalies": 2,
+          "critical_anomalies": 0,
+          "fatal_anomalies": 0,
+          "risk_score": 2
+        },
+        {
+          "test_name": "maneuvers_suite",
+          "total_anomalies": 1,
+          "critical_anomalies": 0,
+          "fatal_anomalies": 0,
+          "risk_score": 1
+        }
+      ]
+    }
+  },
+  "final_system_state": {
+    "timestamp": 1750826642.732799,
+    "cpu_percent": 59.7,
+    "memory_percent": 85.1,
+    "memory_available_gb": 1.1951141357421875,
+    "disk_usage_percent": 80.0,
+    "process_count": 678
+  }
+}

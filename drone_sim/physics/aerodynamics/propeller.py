@@ -10,7 +10,7 @@ class PropellerType(Enum):
     """Types of propeller models"""
     SIMPLE = "simple"  # Basic momentum theory
     DETAILED = "detailed"  # Blade element momentum theory
-    LOOKUP_TABLE = "lookup_table"  # Experimental data
+    LOOKUP_TABLE = "lookup_table"  # Currently is placeholder
 
 @dataclass
 class PropellerConfig:

@@ -17,7 +17,7 @@ class WindModel(Enum):
 class EnvironmentConfig:
     """Configuration for environmental conditions"""
     gravity_magnitude: float = 9.81  # m/s²
-    gravity_direction: np.ndarray = None  # Default is [0, 0, 1] (downward)
+    gravity_direction: np.ndarray = None  # Default is [0, 0, 1] (downward), normalized vector
     air_density: float = 1.225  # kg/m³
     temperature: float = 288.15  # K
     pressure: float = 101325.0  # Pa

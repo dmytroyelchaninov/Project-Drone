@@ -1,0 +1,508 @@
+{
+  "test_execution": {
+    "suites_run": 2,
+    "total_tests": 10,
+    "overall_success_rate": 1.0,
+    "test_results": {
+      "maneuvers": {
+        "Precision Hover": {
+          "max_error": 0.05485389447196596,
+          "rms_error": 0.015231727136982733,
+          "settling_time": 3.2,
+          "steady_state_error": 0.010808405628567335,
+          "control_effort": 14.7,
+          "stability_metric": 0.9927106105071566
+        },
+        "Figure-8 Pattern": {
+          "max_tracking_error": 0.053533897914493464,
+          "rms_tracking_error": 0.10177572259286063,
+          "path_smoothness": 0.05505183324383589,
+          "speed_accuracy": 0.15,
+          "g_force_peak": 1.1547005383792515,
+          "completion_time": 27.22713633111154,
+          "energy_efficiency": 0.7
+        },
+        "Spiral Climb": {
+          "radial_accuracy": 2.7736917597613324e-16,
+          "climb_rate_accuracy": 0.05,
+          "altitude_gained": 40.0,
+          "spiral_consistency": 0.9999999999999998,
+          "power_consumption": 180.0,
+          "angular_velocity_accuracy": 0.02
+        },
+        "Aggressive Banking": {
+          "max_bank_angle": 47.2,
+          "bank_angle_accuracy": 2.1,
+          "max_g_force": 2.3,
+          "turn_rate_accuracy": 0.15,
+          "altitude_loss": 0.8,
+          "control_authority_usage": 0.85,
+          "recovery_time": 2.5
+        },
+        "Formation Flying": {
+          "formation_accuracy": 0.05883756108352562,
+          "max_formation_error": 0.14171096682213333,
+          "formation_stability": 0.9705812194582372,
+          "collision_risk_max": 0.0,
+          "coordination_efficiency": 0.8323248778329487,
+          "communication_delay_tolerance": 0.05
+        }
+      },
+      "performance": {
+        "Time Step Scaling": {
+          "0.0001": {
+            "total_time": 0.02589583396911621,
+            "avg_step_time": 0.025631497614085674,
+            "std_step_time": 0.015412362394136505,
+            "min_step_time": 0.020166044123470783,
+            "max_step_time": 0.3141670022159815,
+            "simulation_rate": 38616.2500575427,
+            "real_time_factor": 3.86162500575427,
+            "cpu_usage": -9.600000000000001,
+            "memory_delta": 0.0,
+            "efficiency": 1.0
+          },
+          "0.0005": {
+            "total_time": 0.02107381820678711,
+            "avg_step_time": 0.020918583846651018,
+            "std_step_time": 0.0036034066569901203,
+            "min_step_time": 0.019499915651977062,
+            "max_step_time": 0.09883299935609102,
+            "simulation_rate": 47452.245729154885,
+            "real_time_factor": 23.72612286457744,
+            "cpu_usage": 31.2,
+            "memory_delta": 0.0,
+            "efficiency": 1.0
+          },
+          "0.001": {
+            "total_time": 0.021802902221679688,
+            "avg_step_time": 0.02163873880635947,
+            "std_step_time": 0.005608420733079469,
+            "min_step_time": 0.019458006136119366,
+            "max_step_time": 0.11120806448161602,
+            "simulation_rate": 45865.45359111189,
+            "real_time_factor": 45.86545359111189,
+            "cpu_usage": 0.0,
+            "memory_delta": 0.0,
+            "efficiency": 1.0
+          },
+          "0.002": {
+            "total_time": 0.02099609375,
+            "avg_step_time": 0.020839220262132585,
+            "std_step_time": 0.002402128186074349,
+            "min_step_time": 0.01954101026058197,
+            "max_step_time": 0.054832897149026394,
+            "simulation_rate": 47627.90697674418,
+            "real_time_factor": 95.25581395348837,
+            "cpu_usage": 0.0,
+            "memory_delta": 0.0,
+            "efficiency": 1.0
+          },
+          "0.005": {
+            "total_time": 0.021292924880981445,
+            "avg_step_time": 0.021134156151674688,
+            "std_step_time": 0.0037561212643993837,
+            "min_step_time": 0.019583036191761494,
+            "max_step_time": 0.09574997238814831,
+            "simulation_rate": 46963.95660011869,
+            "real_time_factor": 234.81978300059345,
+            "cpu_usage": 0.0,
+            "memory_delta": 0.0,
+            "efficiency": 1.0
+          },
+          "0.01": {
+            "total_time": 0.02404928207397461,
+            "avg_step_time": 0.02385171491187066,
+            "std_step_time": 0.010427809083335422,
+            "min_step_time": 0.020124949514865875,
+            "max_step_time": 0.16599998343735933,
+            "simulation_rate": 41581.28283929811,
+            "real_time_factor": 415.8128283929811,
+            "cpu_usage": 0.0,
+            "memory_delta": 0.0,
+            "efficiency": 1.0
+          },
+          "0.02": {
+            "total_time": 0.010669946670532227,
+            "avg_step_time": 0.02116476115770638,
+            "std_step_time": 0.0028667123481908034,
+            "min_step_time": 0.019625062122941017,
+            "max_step_time": 0.05208398215472698,
+            "simulation_rate": 46860.59035148482,
+            "real_time_factor": 937.2118070296964,
+            "cpu_usage": 0.0,
+            "memory_delta": 0.0,
+            "efficiency": 1.0
+          }
+        },
+        "Propeller Count Scaling": {
+          "2": {
+            "propeller_count": 2,
+            "total_time": 37.03091701027006,
+            "time_per_propeller": 18.51545850513503,
+            "calculations_per_second": 27004.46223685637,
+            "scaling_efficiency": 0.5
+          },
+          "4": {
+            "propeller_count": 4,
+            "total_time": 75.318832998164,
+            "time_per_propeller": 18.829708249541,
+            "calculations_per_second": 13276.89185020135,
+            "scaling_efficiency": 0.25
+          },
+          "6": {
+            "propeller_count": 6,
+            "total_time": 110.78195797745138,
+            "time_per_propeller": 18.463659662908565,
+            "calculations_per_second": 9026.740619655238,
+            "scaling_efficiency": 0.16666666666666666
+          },
+          "8": {
+            "propeller_count": 8,
+            "total_time": 150.09654103778303,
+            "time_per_propeller": 18.76206762972288,
+            "calculations_per_second": 6662.378713632549,
+            "scaling_efficiency": 0.125
+          },
+          "12": {
+            "propeller_count": 12,
+            "total_time": 225.34716699738055,
+            "time_per_propeller": 18.778930583115045,
+            "calculations_per_second": 4437.59738950534,
+            "scaling_efficiency": 0.08333333333333333
+          },
+          "16": {
+            "propeller_count": 16,
+            "total_time": 278.767624986358,
+            "time_per_propeller": 17.422976561647374,
+            "calculations_per_second": 3587.2171312896785,
+            "scaling_efficiency": 0.0625
+          },
+          "24": {
+            "propeller_count": 24,
+            "total_time": 396.06225001625717,
+            "time_per_propeller": 16.50259375067738,
+            "calculations_per_second": 2524.855625495621,
+            "scaling_efficiency": 0.041666666666666664
+          },
+          "32": {
+            "propeller_count": 32,
+            "total_time": 565.9452920081094,
+            "time_per_propeller": 17.68579037525342,
+            "calculations_per_second": 1766.9552412950738,
+            "scaling_efficiency": 0.03125
+          }
+        },
+        "Real-time Factor Performance": {
+          "0.1": {
+            "target_rtf": 0.1,
+            "achieved_rtf": 13.155971653664821,
+            "rtf_efficiency": 131.5597165366482,
+            "actual_duration": 0.7601110935211182,
+            "expected_duration": 100.0,
+            "overhead": 0,
+            "feasible": true
+          },
+          "0.5": {
+            "target_rtf": 0.5,
+            "achieved_rtf": 66.68358278244666,
+            "rtf_efficiency": 133.36716556489333,
+            "actual_duration": 0.1499619483947754,
+            "expected_duration": 20.0,
+            "overhead": 0,
+            "feasible": true
+          },
+          "1.0": {
+            "target_rtf": 1.0,
+            "achieved_rtf": 133.45075979331585,
+            "rtf_efficiency": 133.45075979331585,
+            "actual_duration": 0.07493400573730469,
+            "expected_duration": 10.0,
+            "overhead": 0,
+            "feasible": true
+          },
+          "2.0": {
+            "target_rtf": 2.0,
+            "achieved_rtf": 265.217204355469,
+            "rtf_efficiency": 132.6086021777345,
+            "actual_duration": 0.0377049446105957,
+            "expected_duration": 5.0,
+            "overhead": 0,
+            "feasible": true
+          },
+          "5.0": {
+            "target_rtf": 5.0,
+            "achieved_rtf": 654.1947156627258,
+            "rtf_efficiency": 130.83894313254515,
+            "actual_duration": 0.015285968780517578,
+            "expected_duration": 2.0,
+            "overhead": 0,
+            "feasible": true
+          },
+          "10.0": {
+            "target_rtf": 10.0,
+            "achieved_rtf": 1289.6820613738394,
+            "rtf_efficiency": 128.96820613738393,
+            "actual_duration": 0.007753849029541016,
+            "expected_duration": 1.0,
+            "overhead": 0,
+            "feasible": true
+          },
+          "20.0": {
+            "target_rtf": 20.0,
+            "achieved_rtf": 2690.553595483995,
+            "rtf_efficiency": 134.52767977419975,
+            "actual_duration": 0.003716707229614258,
+            "expected_duration": 0.5,
+            "overhead": 0,
+            "feasible": true
+          },
+          "50.0": {
+            "target_rtf": 50.0,
+            "achieved_rtf": 6249.894203546416,
+            "rtf_efficiency": 124.99788407092832,
+            "actual_duration": 0.001600027084350586,
+            "expected_duration": 0.2,
+            "overhead": 0,
+            "feasible": true
+          },
+          "100.0": {
+            "target_rtf": 100.0,
+            "achieved_rtf": 13135.934857500783,
+            "rtf_efficiency": 131.35934857500783,
+            "actual_duration": 0.0007612705230712891,
+            "expected_duration": 0.1,
+            "overhead": 0,
+            "feasible": true
+          }
+        },
+        "Memory Usage Analysis": {
+          "baseline": {
+            "baseline_memory": 3502.828125,
+            "after_creation": 3502.828125,
+            "creation_overhead": 0.0
+          },
+          "simulation_growth": {
+            "step_intervals": [
+              0,
+              1000,
+              2000,
+              5000,
+              10000,
+              20000
+            ],
+            "memory_samples": [
+              3503.59375,
+              3503.59375,
+              3503.59375,
+              3503.59375,
+              3503.59375,
+              3503.59375
+            ],
+            "memory_growth": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "total_growth": 0.0,
+            "growth_rate": 0.0,
+            "linear_growth": NaN
+          },
+          "state_history_impact": {
+            "history_sizes": [
+              100,
+              1000,
+              5000,
+              10000,
+              50000
+            ],
+            "memory_usage": [
+              3503.59375,
+              3503.59375,
+              3503.59375,
+              3503.59375,
+              3503.59375
+            ],
+            "memory_per_state": "[0. 0. 0. 0.]",
+            "scaling_factor": 1.0
+          },
+          "garbage_collection": {
+            "gc_time": 11.30524999462068,
+            "memory_freed": 100.0,
+            "gc_frequency": 60.0,
+            "performance_impact": 5.65262499731034
+          }
+        },
+        "CPU Utilization Analysis": {
+          "single_core": {
+            "computation_time": 4192.5679160049185,
+            "cpu_usage_per_core": [
+              64.1,
+              66.8,
+              70.1,
+              72.9,
+              53.2,
+              59.0,
+              67.7,
+              74.9
+            ],
+            "max_core_usage": 100.0,
+            "avg_core_usage": 99.8625,
+            "core_utilization_efficiency": 1.0
+          },
+          "multi_core": {
+            "parallel_efficiency": 0.85,
+            "scaling_factor": 3.2,
+            "thread_overhead": 0.05
+          },
+          "threading_efficiency": {
+            "thread_creation_overhead": 0.1,
+            "context_switch_cost": 0.01,
+            "optimal_thread_count": 8,
+            "threading_speedup": 2.8
+          },
+          "vectorization_impact": {
+            "vectorized_time": 0.4742499440908432,
+            "loop_time": 9.573166957125068,
+            "speedup_factor": 20.185910565529376,
+            "vectorization_efficiency": 0.9504604958615215
+          }
+        }
+      }
+    }
+  },
+  "physics_validation": {
+    "duration": 10.113374948501587,
+    "validation_rate": 3.3618846500927457,
+    "total_tests_monitored": 34,
+    "total_anomalies": 8,
+    "anomalies_by_severity": {
+      "WARNING": 3,
+      "CRITICAL": 5
+    },
+    "corrections_applied": 57,
+    "test_statistics": {
+      "Spiral Climb": {
+        "anomalies": 2,
+        "severities": [
+          "WARNING",
+          "WARNING"
+        ]
+      },
+      "maneuvers_suite": {
+        "anomalies": 1,
+        "severities": [
+          "WARNING"
+        ]
+      },
+      "Time Step Scaling": {
+        "anomalies": 2,
+        "severities": [
+          "CRITICAL",
+          "CRITICAL"
+        ]
+      },
+      "Real-time Factor Performance": {
+        "anomalies": 2,
+        "severities": [
+          "CRITICAL",
+          "CRITICAL"
+        ]
+      },
+      "performance_suite": {
+        "anomalies": 1,
+        "severities": [
+          "CRITICAL"
+        ]
+      }
+    },
+    "validation_efficiency": 0.03361884650092746,
+    "most_problematic_tests": [
+      {
+        "test_name": "Time Step Scaling",
+        "total_anomalies": 2,
+        "critical_anomalies": 2,
+        "fatal_anomalies": 0,
+        "risk_score": 8
+      },
+      {
+        "test_name": "Real-time Factor Performance",
+        "total_anomalies": 2,
+        "critical_anomalies": 2,
+        "fatal_anomalies": 0,
+        "risk_score": 8
+      },
+      {
+        "test_name": "performance_suite",
+        "total_anomalies": 1,
+        "critical_anomalies": 1,
+        "fatal_anomalies": 0,
+        "risk_score": 4
+      },
+      {
+        "test_name": "Spiral Climb",
+        "total_anomalies": 2,
+        "critical_anomalies": 0,
+        "fatal_anomalies": 0,
+        "risk_score": 2
+      },
+      {
+        "test_name": "maneuvers_suite",
+        "total_anomalies": 1,
+        "critical_anomalies": 0,
+        "fatal_anomalies": 0,
+        "risk_score": 1
+      }
+    ]
+  },
+  "anomaly_analysis": {
+    "total_anomalies": 8,
+    "critical_anomalies": 5,
+    "anomaly_rate": 0.8,
+    "critical_anomaly_details": [
+      {
+        "test_name": "Time Step Scaling",
+        "severity": "CRITICAL",
+        "description": "6 violations, 0 warnings",
+        "impact": "MEDIUM: Critical physics violation. Monitor for recurrence."
+      },
+      {
+        "test_name": "Time Step Scaling",
+        "severity": "CRITICAL",
+        "description": "6 violations, 0 warnings",
+        "impact": "MEDIUM: Critical physics violation. Monitor for recurrence."
+      },
+      {
+        "test_name": "Real-time Factor Performance",
+        "severity": "CRITICAL",
+        "description": "25 violations, 0 warnings",
+        "impact": "MEDIUM: Critical physics violation. Monitor for recurrence."
+      },
+      {
+        "test_name": "Real-time Factor Performance",
+        "severity": "CRITICAL",
+        "description": "25 violations, 0 warnings",
+        "impact": "MEDIUM: Critical physics violation. Monitor for recurrence."
+      },
+      {
+        "test_name": "performance_suite",
+        "severity": "CRITICAL",
+        "description": "31 violations, 0 warnings",
+        "impact": "MEDIUM: Critical physics violation. Monitor for recurrence."
+      }
+    ]
+  },
+  "integration_metrics": {
+    "background_validation_efficiency": 0.03361884650092746,
+    "real_time_monitoring": true,
+    "automated_corrections": 57,
+    "validation_coverage": 1.0
+  },
+  "recommendations": [
+    "Critical anomalies detected. Investigate test configurations and physics models.",
+    "Low validation efficiency. Consider optimizing validation intervals or test complexity.",
+    "Focus on improving: Time Step Scaling, Real-time Factor Performance, performance_suite"
+  ]
+}

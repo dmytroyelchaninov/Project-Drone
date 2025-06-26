@@ -49,6 +49,7 @@ try:
 except ImportError:
     MovementLogger = None
 
+
 class SimulationMode(Enum):
     MANUAL = "manual"
     AI = "ai"
@@ -269,22 +270,22 @@ class RealTimeInterface:
         instructions_frame.pack(fill=tk.X, pady=5)
         
         instructions_text = """
-🚀 WORKFLOW:
-1. Select simulation mode above
-2. Configure parameters below
-3. Click 'Start Simulation' to begin
-4. For AI mode: Use training controls
+            🚀 WORKFLOW:
+            1. Select simulation mode above
+            2. Configure parameters below
+            3. Click 'Start Simulation' to begin
+            4. For AI mode: Use training controls
 
-⚡ AI TRAINING:
-• Click 'Start Training' to begin episodes
-• Each episode runs for 12 seconds
-• Click 'Pause Training' to save progress
-• Click 'Resume Training' to continue
-• Use 'Reset Position' to restart drone
-• Training auto-saves every 10 episodes
+            ⚡ AI TRAINING:
+            • Click 'Start Training' to begin episodes
+            • Each episode runs for 12 seconds
+            • Click 'Pause Training' to save progress
+            • Click 'Resume Training' to continue
+            • Use 'Reset Position' to restart drone
+            • Training auto-saves every 10 episodes
         """
         instructions_label = ttk.Label(instructions_frame, text=instructions_text, 
-                                     font=('Arial', 8), justify=tk.LEFT)
+                                     font=('Arial', 12), justify=tk.LEFT)
         instructions_label.pack(anchor=tk.W, padx=5, pady=5)
         
         # Parameters
@@ -383,26 +384,26 @@ class RealTimeInterface:
         self.manual_frame.pack(fill=tk.X, pady=5)
         
         help_text = """
-🎮 ENHANCED MANUAL CONTROLS:
+            🎮 ENHANCED MANUAL CONTROLS:
 
-ARROW KEYS (Primary):
-↑/↓: Thrust up/down (smooth)
-←/→: Roll left/right
+            ARROW KEYS (Primary):
+            ↑/↓: Thrust up/down (smooth)
+            ←/→: Roll left/right
 
-WASD KEYS (Secondary):
-W/S: Pitch forward/backward  
-A/D: Yaw left/right
+            WASD KEYS (Secondary):
+            W/S: Pitch forward/backward  
+            A/D: Yaw left/right
 
-SPECIAL KEYS:
-Space: Return to hover
-ESC: Emergency thrust reduction
+            SPECIAL KEYS:
+            Space: Return to hover
+            ESC: Emergency thrust reduction
 
-CONTROLS FEATURE:
-• Hold keys for accelerating effect
-• Smooth return to neutral on release
-• Physics-based response curves
+            CONTROLS FEATURE:
+            • Hold keys for accelerating effect
+            • Smooth return to neutral on release
+            • Physics-based response curves
         """
-        ttk.Label(self.manual_frame, text=help_text, font=('Courier', 8)).pack()
+        ttk.Label(self.manual_frame, text=help_text, font=('Courier', 12)).pack()
         
         # Initialize training state
         self.training_active = False
