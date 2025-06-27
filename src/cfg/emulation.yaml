@@ -1,0 +1,65 @@
+# Emulation Configuration
+# Settings optimized for simulation/emulation mode
+
+SIMULATION: true
+
+GENERAL:
+  POLL_FREQUENCY: 100
+  
+AVAILABLE_SENSORS:
+  gps:
+    enabled: true
+    fake: true
+    accuracy: 1.0      # Better accuracy in simulation
+    
+  barometer:
+    enabled: true
+    fake: true
+    accuracy: 0.05
+    
+  gyroscope:
+    enabled: true
+    fake: true
+    noise_std: 0.005   # Less noise in simulation
+    
+  temperature:
+    enabled: true
+    fake: true
+    
+  compass:
+    enabled: true
+    fake: true
+    
+  cameras:
+    enabled: true
+    fake: true
+    camera_count: 2
+    resolution: [1920, 1080]
+    fps: 60
+
+ENVIRONMENT:
+  obstacles_enabled: true
+  wind_enabled: true
+  
+PHYSICS:
+  collision_detection: true
+  ground_effect: true
+  air_resistance: true
+  
+AI:
+  obstacle_avoidance: true
+  path_planning: true
+  
+UI:
+  window_size: [1920, 1080]
+  fps: 60
+  render_trails: true
+  show_sensors: true
+  show_physics_debug: true
+  
+LOGGING:
+  console_level: "INFO"
+  file_level: "DEBUG"
+  log_sensors: true
+  log_control: true
+  log_physics: true 

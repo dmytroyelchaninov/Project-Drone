@@ -1,0 +1,69 @@
+# Default Configuration
+# Safe defaults for drone operation
+
+SIMULATION: true
+
+GENERAL:
+  POLL_FREQUENCY: 50
+  LOG_LEVEL: "WARNING"
+  
+CURRENT_DEVICE:
+  type: "keyboard"
+  device_id: 0
+  
+AVAILABLE_SENSORS:
+  gps:
+    enabled: false
+    fake: true
+    
+  barometer:
+    enabled: false
+    fake: true
+    
+  gyroscope:
+    enabled: false
+    fake: true
+    
+  temperature:
+    enabled: false
+    fake: true
+    
+  anemometer:
+    enabled: false
+    fake: true
+    
+  compass:
+    enabled: false
+    fake: true
+    
+  cameras:
+    enabled: false
+    fake: true
+
+DRONE:
+  mass: 1.0
+  arm_length: 0.2
+  engines:
+    count: 4
+    max_voltage: 8.0
+    hover_voltage: 4.0
+    max_rpm_per_volt: 600.0
+    voltage_ramp_rate: 12.0
+    
+ENVIRONMENT:
+  gravity: 9.81
+  obstacles_enabled: false
+  wind_enabled: false
+  
+CONTROL:
+  default_mode: "manual"
+  default_go: "idle"
+  default_task: null
+  
+PHYSICS:
+  integration_method: "euler"
+  collision_detection: false
+  
+UI:
+  window_size: [800, 600]
+  fps: 30 

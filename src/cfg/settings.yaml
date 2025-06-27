@@ -1,0 +1,170 @@
+# Main Settings Configuration
+# This file defines the primary system configuration for the drone project
+
+# System Configuration
+SIMULATION: true  # true for simulation mode, false for real hardware
+
+# General System Settings
+GENERAL:
+  POLL_FREQUENCY: 100  # Hz - frequency for sensor and device polling
+  LOG_LEVEL: "INFO"    # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  DATA_DIRECTORY: "data"
+  LOG_DIRECTORY: "logs"
+  
+# Current Device Configuration
+CURRENT_DEVICE:
+  type: "keyboard"     # keyboard, joystick
+  device_id: 0         # For multiple devices of same type
+  
+# Available Sensors Configuration
+AVAILABLE_SENSORS:
+  gps:
+    enabled: true
+    fake: true         # Use simulated data when SIMULATION=true
+    update_rate: 10    # Hz
+    accuracy: 3.0      # meters
+    
+  barometer:
+    enabled: true
+    fake: true
+    update_rate: 50    # Hz
+    accuracy: 0.1      # meters altitude accuracy
+    
+  gyroscope:
+    enabled: true
+    fake: true
+    update_rate: 100   # Hz
+    noise_std: 0.01    # rad/s noise standard deviation
+    
+  temperature:
+    enabled: true
+    fake: true
+    update_rate: 1     # Hz
+    accuracy: 0.5      # Kelvin
+    
+  anemometer:
+    enabled: false
+    fake: true
+    update_rate: 10    # Hz
+    
+  compass:
+    enabled: true
+    fake: true
+    update_rate: 50    # Hz
+    declination: 0.0   # magnetic declination in degrees
+    
+  cameras:
+    enabled: false
+    fake: true
+    camera_count: 1
+    resolution: [640, 480]
+    fps: 30
+
+# Drone Physical Configuration
+DRONE:
+  # Physical properties
+  mass: 1.5           # kg
+  arm_length: 0.225   # meters
+  
+  # Engine configuration
+  engines:
+    count: 4
+    max_voltage: 12.0  # volts
+    min_voltage: 0.0   # volts
+    hover_voltage: 6.0 # volts needed for hover
+    max_rpm_per_volt: 800.0
+    voltage_ramp_rate: 24.0  # V/s
+    
+  # Propeller configuration
+  propellers:
+    diameter: 0.24     # meters
+    pitch: 0.12        # meters
+    blades: 2
+    ct_coefficient: 1.1e-5
+    cq_coefficient: 1.9e-6
+    
+  # Battery configuration
+  battery:
+    voltage: 12.0      # volts
+    capacity: 5000     # mAh
+    cells: 3           # LiPo cells (3S)
+    
+  # Cargo
+  cargo_mass: 0.0     # kg
+
+# Environment Configuration
+ENVIRONMENT:
+  gravity: 9.81       # m/s²
+  air_density: 1.225  # kg/m³
+  temperature: 288.15 # K (15°C)
+  pressure: 101325.0  # Pa
+  wind_enabled: false
+  obstacles_enabled: true
+  
+# Hub Configuration
+HUB:
+  update_rate: 100    # Hz
+  emergency_stop_enabled: true
+  watchdog_timeout: 2.0  # seconds
+  data_validation: true
+  
+# Control System Configuration
+CONTROL:
+  # Control modes: ai, hybrid, manual
+  default_mode: "manual"
+  
+  # Control states: off, operate, idle, float
+  default_go: "idle"
+  
+  # Tasks: None, take_off, land, follow, back_to_base, projectile
+  default_task: null
+  
+  # Manual control sensitivity
+  keyboard:
+    voltage_sensitivity: 1.5
+    differential_sensitivity: 0.8
+    key_repeat_rate: 10.0
+    
+  joystick:
+    deadzone: 0.1
+    sensitivity: 1.0
+    
+# Physics Configuration
+PHYSICS:
+  integration_method: "euler"  # euler, runge_kutta
+  collision_detection: true
+  ground_effect: true
+  air_resistance: true
+  
+# AI Configuration
+AI:
+  model_path: "models/drone_ai.pth"
+  inference_rate: 50   # Hz
+  obstacle_avoidance: true
+  path_planning: true
+  
+# UI Configuration
+UI:
+  window_width: 1200
+  window_height: 800
+  target_fps: 60
+  render_frequency: 60.0  # Hz
+  show_sensors: true
+  show_debug_info: true
+  show_trajectory: true
+  
+# Map Configuration
+MAP:
+  cache_size: 100     # MB
+  offline_maps: true
+  api_provider: "openstreetmap"  # openstreetmap, google, bing
+  
+# Logging Configuration
+LOGGING:
+  console_level: "INFO"
+  file_level: "DEBUG"
+  max_file_size: "10MB"
+  backup_count: 5
+  log_sensors: true
+  log_control: true
+  log_physics: true 

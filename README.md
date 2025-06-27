@@ -1,272 +1,265 @@
-# Drone Simulation Project
+# Drone Project
 
-A physics-accurate, reactive simulator for multirotor drones with comprehensive acoustic analysis capabilities.
+A comprehensive drone simulation and control system with modular architecture supporting both real hardware and simulation modes.
 
-## Features
+## Architecture Overview
 
-- **Physics-Accurate Simulation**: 6-DOF rigid body dynamics with quaternion-based attitude representation
-- **Reactive Parameter Tuning**: Real-time adjustment of physical parameters (propeller radius, mass, payload)
-- **Advanced Propeller Modeling**: Configurable propeller models with per-motor specifications
-- **Acoustic Analysis**: Real-time noise spectrum calculation and SPL measurement
-- **Modular Control System**: PID controllers with ML-ready interfaces
-- **Environmental Modeling**: Wind, turbulence, and atmospheric effects
-- **Real-time Visualization**: 3D visualization with parameter controls
-
-## Project Structure
+The system follows a modular design based on the specification in `src/prompts.md`:
 
 ```
-drone_sim/
-├── core/                    # Base simulation infrastructure
-│   ├── simulator.py         # Main simulation loop with fixed-time stepping
-│   ├── state_manager.py     # Handles drone state transitions
-│   └── event_system.py      # Pub-sub for parameter changes
-│
-├── physics/                 # Physical modeling
-│   ├── aerodynamics/
-│   │   ├── propeller.py     # Configurable propeller models (per-motor)
-│   │   └── noise_model.py   # Acoustic noise spectrum calculation
-│   ├── rigid_body.py        # 6DOF dynamics
-│   └── environment.py       # Gravity, wind, disturbances
-│
-├── control/                 # Flight control stack
-│   ├── base_controller.py   # Interface for all controllers
-│   ├── pid_controller.py    # Classical PID implementation
-│   ├── mixer.py             # Motor mixing algorithms
-│   └── adaptive/            # ML-ready components
-│       └── rl_interface.py  # Hook for reinforcement learning
-│
-├── sensors/                 # Sensor simulation
-│   ├── imu.py               # With configurable noise
-│   ├── microphone.py        # For noise measurement at points
-│   └── noise_profiles/      # Different noise characteristic presets
-│
-├── analysis/                # Noise optimization tools
-│   ├── fft_processor.py     # Frequency domain analysis
-│   ├── optimizer.py         # Parameter optimization routines
-│   └── metrics.py           # Noise/performance metrics
-│
-├── ui/                      # User interface
-│   ├── web/                 # Future web interface
-│   ├── cli.py               # Command line controls
-│   └── visualizer.py        # 3D PyOpenGL visualization
-│
-├── configs/                 # Parameter configurations
-│   ├── drone_presets/       # Different drone configurations
-│   └── noise_scenarios/     # Predefined noise measurement setups
-│
-├── tests/                   # Testing infrastructure
-│   ├── unit/                # Module tests
-│   └── integration/         # Full system tests
-│
-└── utils/                   # Supporting code
-    ├── math_tools.py        # Vector/matrix operations
-    └── data_logger.py       # CSV/ROS bag output
+src/
+├── cfg/                    # Configuration management (YAML-based)
+├── input/                  # Input handling system
+│   ├── devices/           # Input devices (keyboard, joystick)
+│   ├── sensors/           # All sensor implementations
+│   ├── hub.py            # Central data hub (SINGLETON)
+│   └── poller.py         # Polling system manager
+├── physics/               # Physics simulation modules
+├── drone/                 # Main drone control logic
+└── prompts.md            # Complete system specification
 ```
 
-## Installation
+## Key Components
 
-### Requirements
+### Hub (Singleton)
 
-- Python 3.8+
-- NumPy >= 1.21.0
-- SciPy >= 1.7.0
-- PyYAML >= 6.0
+- Central data storage and coordination
+- Manages all input/output data
+- Stores device states and system configuration
+- Thread-safe with asynchronous real-time updates
 
-### Install from source
+### Poller
 
-```bash
-git clone <repository-url>
-cd drone_project
-pip install -e .
-```
+- Manages polling of all devices and sensors
+- Runs in separate thread with configurable frequency
+- Includes error handling and recovery mechanisms
+- Provides system testing capabilities
 
-### Install with development dependencies
+### Drone Control
 
-```bash
-pip install -e ".[dev]"
-```
+- Main control logic transforming input to voltage output
+- Supports multiple modes: manual, hybrid, AI
+- Implements safety monitoring and emergency procedures
+- Integrates with physics simulation
 
-### Install with visualization support
+### Input System
 
-```bash
-pip install -e ".[visualization]"
-```
+- **Devices**: Keyboard, joystick control with voltage output
+- **Sensors**: GPS, barometer, gyroscope, compass, camera, etc.
+- **VoltageController**: Converts voltages to thrust using propeller physics
+
+### Physics Simulation
+
+- Complete 3D rigid body dynamics with quaternions
+- Propeller aerodynamics and thrust calculation
+- Environmental effects (wind, ground effect, atmosphere)
+- Real-time physics integration
 
 ## Quick Start
 
-### Basic Simulation
+### Run the Complete System
+
+```bash
+cd scripts
+python run_system.py
+```
+
+### Test Individual Components
+
+```bash
+cd scripts
+python test_components.py
+```
+
+### Configuration
+
+Edit configuration files in `src/cfg/`:
+
+- `settings.yaml` - Main settings
+- `user.yaml` - User-specific overrides
+- `emulation.yaml` - Simulation-specific settings
+
+## Control Modes
+
+### Manual Mode
+
+- Direct voltage control from input device (keyboard/joystick)
+- Real-time response to user input
+- Safety limits and emergency override
+
+### Hybrid Mode
+
+- Manual control with AI assistance
+- AI provides stability and safety corrections
+- Blended control for enhanced performance
+
+### AI Mode
+
+- Full autonomous control
+- Task-based operation (takeoff, land, follow, return to base)
+- Sensor-based navigation and control
+
+## Control States
+
+### Go States
+
+- **off**: All engines off
+- **idle**: Minimal power, engines spinning
+- **float**: Hover in place
+- **operate**: Active control mode
+
+### Tasks (AI/Hybrid)
+
+- **take_off**: Autonomous takeoff sequence
+- **land**: Controlled landing
+- **follow**: Follow target (placeholder)
+- **back_to_base**: Return to home position
+- **projectile**: Ballistic trajectory mode
+
+## Input Devices
+
+### Keyboard Controls
+
+- **WASD**: Roll/Pitch control
+- **QE**: Yaw control
+- **RF**: Throttle up/down
+- **TAB**: Cycle control modes
+- **SPACE**: Emergency stop
+
+### Device Interface
+
+All devices inherit from `BaseDevice` with common polling interface:
 
 ```python
-import numpy as np
-from drone_sim import (
-    Simulator, SimulationConfig,
-    RigidBody, RigidBodyConfig,
-    PIDController
-)
-
-# Create simulation
-sim_config = SimulationConfig(dt=0.002, real_time_factor=1.0)
-simulator = Simulator(sim_config)
-
-# Set up drone physics
-inertia = np.diag([0.02, 0.02, 0.04])
-rigid_body = RigidBody(RigidBodyConfig(mass=1.5, inertia=inertia))
-simulator.register_physics_engine(rigid_body)
-
-# Set up controller
-controller = PIDController()
-
-# Run simulation
-simulator.run(duration=10.0)  # 10 seconds
+class BaseDevice:
+    def poll(self) -> Dict[str, Any]
+    def start(self)
+    def stop(self)
 ```
 
-### Noise Analysis Example
+## Sensors
 
-```python
-from drone_sim.physics.aerodynamics import PropellerNoiseModel, ObserverPosition
+All sensors inherit from `BaseSensor` with real/fake modes:
 
-# Create noise model
-propeller_config = {'diameter': 0.24, 'blades': 2}
-noise_model = PropellerNoiseModel(propeller_config)
+- **GPS**: Position, velocity, heading
+- **Barometer**: Altitude, vertical speed, atmospheric data
+- **Gyroscope**: Angular velocity with calibration
+- **Compass**: Magnetic heading and field strength
+- **Camera**: Visual data, object detection, optical flow
+- **Anemometer**: Wind speed and direction
+- **Temperature/Humidity**: Environmental monitoring
+- **LiDAR**: Distance measurement and obstacle detection
 
-# Set observer position
-observer = ObserverPosition(x=5.0, y=0.0, z=-2.0)
+## Physics System
 
-# Calculate noise spectrum
-noise_data = noise_model.calculate_total_noise(
-    rpm=3000,
-    thrust=5.0,
-    observer=observer
-)
+### QuadcopterPhysics
 
-# Get noise metrics
-metrics = noise_model.get_metrics()
-print(f"OASPL: {metrics['oaspl_db']:.1f} dB")
+- 6-DOF rigid body dynamics
+- Engine thrust to force/moment conversion
+- Integration with environmental effects
+- Real-time state updates
+
+### Environment (Singleton)
+
+- Atmospheric properties vs altitude
+- Wind modeling with turbulence
+- Ground effects and boundaries
+- Aerodynamic force calculation
+
+### Propeller Model
+
+- Voltage to RPM to thrust conversion
+- Realistic aerodynamic coefficients
+- Performance analysis and hover calculations
+
+## Safety Features
+
+### Emergency Systems
+
+- Automatic emergency stops on danger detection
+- Watchdog timeouts for input devices
+- Altitude and angular rate limiting
+- Recovery procedures with back-to-base capability
+
+### Error Handling
+
+- Poller error recovery with multiple attempts
+- Graceful degradation on sensor failures
+- Thread-safe data access with locks
+- Comprehensive logging and diagnostics
+
+## Data Flow
+
+```
+Input Devices → Hub Input ←  Sensors
+     ↓                          ↑
+   Poller ←→ Hub (Central Data Store)
+     ↓                          ↓
+Drone Control → Hub Output → Physics Simulation
+     ↓                          ↓
+Engine Voltages → Real Hardware / Simulation
 ```
 
-## Key Concepts
+## Configuration System
 
-### Coordinate Frames
+The system uses YAML-based configuration with inheritance:
 
-- **Inertial Frame**: North-East-Down (NED) coordinate system
-- **Body Frame**: Fixed to the drone with X-forward, Y-right, Z-down
-- **Propeller Frame**: Individual propeller coordinate systems
+1. `default.yaml` - Safe defaults
+2. `settings.yaml` - Main configuration
+3. `user.yaml` - User overrides
+4. `emulation.yaml` - Simulation settings
 
-### State Representation
-
-The drone state is represented as a 13-DOF vector:
-
-- Position (3 DOF): [x, y, z] in inertial frame
-- Orientation (4 DOF): Quaternion [w, x, y, z]
-- Linear velocity (3 DOF): [vx, vy, vz] in body frame
-- Angular velocity (3 DOF): [wx, wy, wz] in body frame
-
-### Acoustic Modeling
-
-The noise model implements:
-
-- **Thickness Noise**: Ffowcs Williams-Hawkings theory
-- **Loading Noise**: Far-field approximation
-- **Broadband Noise**: Turbulence-induced noise
-
-## Configuration
-
-### Drone Configuration
-
-Drone configurations are stored in YAML files:
-
-```yaml
-# configs/drone_presets/quadcopter_default.yaml
-name: "Default Quadcopter"
-physics:
-  mass: 1.5 # kg
-  inertia: [0.02, 0.02, 0.04] # kg⋅m²
-
-propellers:
-  count: 4
-  layout: "quad_x"
-  motors:
-    - id: 0
-      position: [0.2, 0.2, 0.0]
-      propeller:
-        diameter: 0.24 # meters
-        blades: 2
-```
-
-### Control Parameters
-
-```yaml
-control:
-  pid_gains:
-    position:
-      kp: [1.0, 1.0, 2.0]
-      ki: [0.1, 0.1, 0.2]
-      kd: [0.5, 0.5, 1.0]
-```
+Settings are accessible through the singleton `Settings` class.
 
 ## Development
 
-### Running Tests
+### Adding New Sensors
 
-```bash
-pytest tests/
-```
+1. Inherit from `BaseSensor`
+2. Implement `_poll_real()` and `_poll_fake()` methods
+3. Add to sensor factory in Hub
+4. Update configuration files
 
-### Code Formatting
+### Adding New Devices
 
-```bash
-black drone_sim/
-flake8 drone_sim/
-```
+1. Inherit from `BaseDevice`
+2. Implement polling and voltage output
+3. Add to device factory in Hub
+4. Update configuration
 
-### Type Checking
+### Extending AI Control
 
-```bash
-mypy drone_sim/
-```
+The drone control system supports easy extension of AI behaviors:
 
-## Examples
+- Add new tasks to `_compute_ai_control()`
+- Implement task-specific control logic
+- Integrate sensor feedback for autonomous operation
 
-See the `examples/` directory for complete simulation examples:
+## Logging
 
-- `basic_simulation.py`: Basic hover simulation
-- `noise_analysis.py`: Acoustic analysis example
-- `wind_disturbance.py`: Wind simulation
-- `parameter_optimization.py`: Noise optimization
+The system provides comprehensive logging:
 
-## Contributing
+- Console output for real-time monitoring
+- File logging for detailed analysis
+- Configurable log levels
+- Component-specific loggers
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Run the test suite
-6. Submit a pull request
+## Hardware Integration
+
+The system is designed for easy hardware integration:
+
+- Device abstraction layer for input hardware
+- Sensor abstraction for real hardware interfaces
+- Physics simulation can be replaced with hardware interfaces
+- Configuration-driven real/simulation mode switching
+
+## Dependencies
+
+- NumPy for numerical computation
+- PyYAML for configuration management
+- Threading for concurrent operation
+- Logging for system monitoring
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Citation
-
-If you use this simulator in your research, please cite:
-
-```bibtex
-@software{drone_sim_2024,
-  title={Drone Simulation: Physics-Accurate Multirotor Simulator with Acoustic Analysis},
-  author={Drone Simulation Team},
-  year={2024},
-  url={https://github.com/username/drone-sim}
-}
-```
-
-## Roadmap
-
-- [ ] GPU-accelerated physics (CuPy integration)
-- [ ] Swarm simulation support
-- [ ] Machine learning control interfaces
-- [ ] Web-based visualization
-- [ ] ROS 2 integration
-- [ ] Hardware-in-the-loop testing
-- [ ] Advanced weather modeling
-- [ ] Multi-fidelity acoustic models
+[Add your license information here]

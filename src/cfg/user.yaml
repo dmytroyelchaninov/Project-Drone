@@ -1,0 +1,29 @@
+# User Configuration
+# User-specific settings that override defaults
+
+# Extend settings.yaml with user preferences
+GENERAL:
+  LOG_LEVEL: "DEBUG"
+  
+AVAILABLE_SENSORS:
+  gps:
+    enabled: true
+  barometer:
+    enabled: true
+  gyroscope:
+    enabled: true
+  compass:
+    enabled: true
+    
+CONTROL:
+  keyboard:
+    voltage_sensitivity: 2.0  # Higher sensitivity for experienced users
+    
+UI:
+  show_physics_debug: true
+  render_trails: true
+  
+LOGGING:
+  console_level: "DEBUG"
+  log_sensors: true
+  log_control: true 

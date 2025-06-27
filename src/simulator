@@ -1,0 +1,310 @@
+#!/usr/bin/env python3
+"""
+Drone Simulator - Main executable
+Launches 3D simulation with UI as described in prompts.md
+
+Usage:
+    python src/simulator [--training]
+    
+    --training: Launch without UI for AI training
+"""
+import sys
+import os
+import argparse
+import logging
+import time
+import threading
+from typing import Optional
+
+# Add src to Python path
+sys.path.insert(0, os.path.dirname(__file__))
+
+# Import modules
+from cfg import settings
+from input.hub import Hub
+from input.poller import Poller
+from physics import QuadcopterPhysics, Environment
+from drone.main import Drone
+from ui.transmission import Transmission
+from ui.emulator import Emulator
+
+logger = logging.getLogger(__name__)
+
+class DroneSimulator:
+    """
+    Main Simulator class that orchestrates all components
+    As specified in prompts.md:
+    1. Creates basic UI, suggests user to set up initial settings
+    2. Loading Phase: Instantiates Hub, Environment, Poller, Drone, Emulator, Transmission
+    3. Tests Poller if it's receiving data from sensors/device
+    """
+    
+    def __init__(self, training_mode: bool = False):
+        self.training_mode = training_mode
+        
+        # Core components (as specified in prompts.md)
+        self.hub: Optional[Hub] = None
+        self.poller: Optional[Poller] = None
+        self.physics: Optional[QuadcopterPhysics] = None
+        self.environment: Optional[Environment] = None
+        self.drone: Optional[Drone] = None
+        self.transmission: Optional[Transmission] = None
+        self.emulator: Optional[Emulator] = None
+        
+        # Threading
+        self.shutdown_event = threading.Event()
+        
+        logger.info(f"Drone Simulator initialized (training_mode={training_mode})")
+    
+    def setup_logging(self):
+        """Configure logging for simulator"""
+        os.makedirs('logs', exist_ok=True)
+        log_level = logging.DEBUG if settings.get('GENERAL.debug', True) else logging.INFO
+        
+        logging.basicConfig(
+            level=log_level,
+            format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+            handlers=[
+                logging.StreamHandler(),
+                logging.FileHandler('logs/simulator.log')
+            ]
+        )
+    
+    def show_startup_ui(self) -> bool:
+        """
+        Creates basic UI, suggests user to set up initial settings
+        As specified in prompts.md
+        """
+        print("="*80)
+        print("🚁 DRONE SIMULATOR")
+        print("="*80)
+        print()
+        print("📋 INITIAL SETTINGS CONFIGURATION")
+        print("-" * 40)
+        
+        # Current settings display
+        current_device = settings.get('CURRENT_DEVICE.type', 'keyboard')
+        available_sensors = list(settings.get('AVAILABLE_SENSORS', {}).keys())
+        
+        print(f"🎮 Device Control: {current_device.upper()}")
+        print(f"📡 Sensors Available: {', '.join(available_sensors)}")
+        print(f"🌍 Simulation Mode: {'ENABLED' if settings.get('SIMULATION', True) else 'DISABLED'}")
+        print(f"⚙️  Poll Frequency: {settings.get('GENERAL.poll_frequency', 100)} Hz")
+        print()
+        
+        # Add keyboard control instructions
+        if current_device.lower() == 'keyboard':
+            print("⌨️  KEYBOARD CONTROLS")
+            print("-" * 40)
+            print("🚁 DRONE CONTROL:")
+            print("   SPACE     - Throttle up (increase altitude)")
+            print("   SHIFT     - Throttle down (decrease altitude)")
+            print("   ↑ (UP)    - Pitch forward")
+            print("   ↓ (DOWN)  - Pitch backward")
+            print("   ← (LEFT)  - Roll left")
+            print("   → (RIGHT) - Roll right")
+            print("   A         - Yaw left (rotate left)")
+            print("   D         - Yaw right (rotate right)")
+            print("   ESC       - Emergency stop")
+            print()
+            print("🖥️  CAMERA CONTROL:")
+            print("   Mouse     - Rotate camera view")
+            print("   Scroll    - Zoom in/out")
+            print("   R         - Reset camera position")
+            print()
+            print("📊 UI TOGGLES:")
+            print("   F1        - Toggle sensor display")
+            print("   F2        - Toggle debug info")
+            print("   F3        - Toggle trajectory display")
+            print()
+        
+        if not self.training_mode:
+            response = input("🚀 Press Enter to start simulation (or 'q' to quit): ")
+            if response.lower() == 'q':
+                return False
+        
+        return True
+    
+    def initialize_components(self) -> bool:
+        """Loading Phase: Instantiates all components in correct order"""
+        try:
+            print("🔄 LOADING PHASE")
+            print("=" * 50)
+            
+            # Set simulation mode
+            settings.set('SIMULATION', True)
+            
+            # Initialize components as specified in prompts.md
+            print("  🏢 Initializing Hub (SINGLETON)...")
+            self.hub = Hub()
+            
+            print("  🌍 Initializing Environment (SINGLETON)...")
+            self.environment = Environment()
+            
+            print("  ⚛️  Initializing Physics...")
+            self.physics = QuadcopterPhysics()
+            
+            print("  📡 Initializing Poller(Hub)...")
+            self.poller = Poller(self.hub)
+            
+            print("  🚁 Initializing Drone(Hub, Environment)...")
+            self.drone = Drone()
+            
+            print("  🔗 Initializing Transmission(Hub, Environment, Physics)...")
+            self.transmission = Transmission(self.hub, self.environment, self.physics)
+            
+            if not self.training_mode:
+                print("  🎮 Initializing Emulator(Transmission)...")
+                self.emulator = Emulator(self.transmission)
+            
+            # Set hub to operate mode for manual control
+            self.hub.set_go('operate')
+            
+            print("  ✅ All components initialized successfully!")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Failed to initialize components: {e}")
+            print(f"  ❌ Initialization failed: {e}")
+            return False
+    
+    def test_components(self) -> bool:
+        """Tests Poller if it's receiving data from sensors/device"""
+        print("🧪 COMPONENT TESTING")
+        print("=" * 50)
+        
+        try:
+            # Test Hub
+            print("  🏢 Testing Hub...")
+            hub_state = self.hub.get_state()
+            print(f"     ✅ Hub OK (mode={hub_state['mode']}, go={hub_state['go']})")
+            
+            # Test Poller (one-time poll as specified in prompts.md)
+            print("  📡 Testing Poller (one-time poll)...")
+            if self.poller.test():
+                print("     ✅ Poller OK - receiving data from sensors/device")
+            else:
+                print("     ⚠️  Poller WARNING - Some sensors/devices not responding")
+            
+            print("  ✅ All component tests completed!")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Component testing failed: {e}")
+            print(f"  ❌ Testing failed: {e}")
+            return False
+    
+    def start_simulation(self):
+        """Start all simulation components and main loop"""
+        try:
+            print("🚀 STARTING SIMULATION")
+            print("=" * 50)
+            
+            # Start Poller
+            print("  📡 Starting Poller...")
+            if not self.poller.start():
+                raise RuntimeError("Failed to start Poller")
+            
+            # Start Drone control
+            print("  🚁 Starting Drone control...")
+            if not self.drone.start():
+                raise RuntimeError("Failed to start Drone")
+            
+            print("  ✅ All systems operational!")
+            
+            if self.training_mode:
+                self._run_training_loop()
+            else:
+                self._run_interactive_simulation()
+                
+        except Exception as e:
+            logger.error(f"Failed to start simulation: {e}")
+            self.shutdown()
+    
+    def _run_training_loop(self):
+        """Run simulation in training mode (no UI)"""
+        print("🤖 TRAINING MODE ACTIVE")
+        print("⏹️  Press Ctrl+C to stop training")
+        
+        try:
+            while not self.shutdown_event.is_set():
+                self.transmission.update_physics_from_hub()
+                time.sleep(0.001)  # 1000 Hz for training
+                
+        except KeyboardInterrupt:
+            print("\n🏁 Training stopped")
+    
+    def _run_interactive_simulation(self):
+        """Run simulation with 3D UI"""
+        print("🎮 INTERACTIVE SIMULATION MODE")
+        print("🖼️  Launching 3D emulator...")
+        
+        try:
+            self.emulator.run()
+        except KeyboardInterrupt:
+            print("\n🛑 Simulation stopped by user")
+        except Exception as e:
+            logger.error(f"Emulator error: {e}")
+    
+    def shutdown(self):
+        """Shutdown all components gracefully"""
+        print("\n🛑 SHUTTING DOWN SIMULATOR")
+        
+        try:
+            self.shutdown_event.set()
+            
+            if self.emulator:
+                self.emulator.stop()
+            if self.drone:
+                self.drone.stop()
+            if self.poller:
+                self.poller.stop()
+            
+            print("  ✅ Simulator shutdown complete")
+            
+        except Exception as e:
+            logger.error(f"Error during shutdown: {e}")
+
+def main():
+    """Main entry point"""
+    parser = argparse.ArgumentParser(description='Drone Simulator')
+    parser.add_argument('--training', action='store_true', 
+                       help='Run in training mode (no UI)')
+    
+    args = parser.parse_args()
+    
+    simulator = DroneSimulator(training_mode=args.training)
+    
+    try:
+        simulator.setup_logging()
+        
+        # Show startup UI (as specified in prompts.md)
+        if not simulator.show_startup_ui():
+            print("🚫 Simulator cancelled by user")
+            return 0
+        
+        # Initialize all components (Loading Phase from prompts.md)
+        if not simulator.initialize_components():
+            print("❌ Failed to initialize components")
+            return 1
+        
+        # Test components (as specified in prompts.md)
+        if not simulator.test_components():
+            print("❌ Component testing failed")
+            return 1
+        
+        # Start simulation
+        simulator.start_simulation()
+        
+    except KeyboardInterrupt:
+        print("\n🛑 Interrupted by user")
+    except Exception as e:
+        logger.error(f"Simulator error: {e}")
+        return 1
+    finally:
+        simulator.shutdown()
+    
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main()) 

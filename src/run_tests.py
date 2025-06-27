@@ -1,0 +1,1 @@
+# tests if all components mounted, if they responding properly. Crush-test the connection, engine.
