@@ -156,12 +156,17 @@ class Poller:
         self.hub._last_update_time = time.time()
     
     def _poll_device(self) -> Optional[Dict[str, Any]]:
-        """Poll the current device"""
-        if not self.hub._device:
-            return None
-        
+        """Poll the current device using Hub's safe polling method"""
         try:
-            return self.hub._device.poll()
+            # Skip keyboard device polling from background thread to avoid macOS threading issues
+            # Keyboard polling will be handled from main thread
+            if (hasattr(self.hub, '_device') and self.hub._device and 
+                hasattr(self.hub._device, '__class__') and 
+                'KeyboardDevice' in str(self.hub._device.__class__)):
+                # Return None so no device data is processed from background thread
+                return None
+            
+            return self.hub.poll_device_safe()
         except Exception as e:
             logger.error(f"Error polling device: {e}")
             return None

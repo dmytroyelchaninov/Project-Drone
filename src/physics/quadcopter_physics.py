@@ -177,7 +177,30 @@ class QuadcopterPhysics:
         
         # Update velocity and position
         self.state.velocity += acceleration * dt
-        self.state.position += self.state.velocity * dt
+        new_position = self.state.position + self.state.velocity * dt
+        
+        # Ground collision detection and handling
+        ground_height = 0.0  # Ground at z = 0
+        if new_position[2] < ground_height:
+            # Hit the ground - handle collision
+            # logger.info(f"Ground collision detected at altitude {new_position[2]:.2f}m")
+            
+            # Clamp position to ground level
+            new_position[2] = ground_height
+            
+            # Set vertical velocity to zero (no bouncing)
+            if self.state.velocity[2] < 0:
+                self.state.velocity[2] = 0.0
+            
+            # Apply some friction to horizontal movement when on ground
+            friction_factor = 0.8
+            self.state.velocity[0] *= friction_factor
+            self.state.velocity[1] *= friction_factor
+            
+            # logger.debug(f"Ground collision resolved: position={new_position}, velocity={self.state.velocity}")
+        
+        # Update position
+        self.state.position = new_position
         
         # Angular motion (Euler's equation)
         # τ = I * α + ω × (I * ω)

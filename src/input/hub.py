@@ -108,7 +108,17 @@ class Hub:
                 )
                 self._device = KeyboardDevice(device_config)
                 self.device['obj'] = self._device
-                logger.info("Keyboard device initialized")
+                
+                # Set hub reference for mode control
+                self._device.set_hub_reference(self)
+                
+                # Start the device
+                if not self._device.start():
+                    logger.error("Failed to start keyboard device")
+                    self._device = None
+                    return
+                
+                logger.info("Keyboard device initialized and started")
             elif device_type == 'joystick':
                 # TODO: Implement joystick device
                 logger.warning("Joystick device not implemented yet")
@@ -119,6 +129,25 @@ class Hub:
         except Exception as e:
             logger.error(f"Failed to initialize device {device_type}: {e}")
             self._device = None
+
+    def poll_device_safe(self) -> Optional[Dict[str, Any]]:
+        """
+        Poll the device safely, handling keyboard special requirements.
+        This method should be called from the main thread for keyboard devices.
+        """
+        if not self._device:
+            return None
+        
+        try:
+            # Special handling for keyboard device that needs main thread access
+            if isinstance(self._device, KeyboardDevice):
+                return self._device.poll_pygame_safe()
+            else:
+                # Regular device polling
+                return self._device.poll()
+        except Exception as e:
+            logger.error(f"Error polling device: {e}")
+            return None
     
     def _initialize_sensors(self):
         """Initialize all enabled sensor objects"""
@@ -194,125 +223,117 @@ class Hub:
             # Clamp voltages to safe range
             max_voltage = self.settings.get('DRONE.engines.max_voltage', 12.0)
             min_voltage = self.settings.get('DRONE.engines.min_voltage', 0.0)
-            
             self.output = [max(min_voltage, min(max_voltage, v)) for v in self.output]
             
             logger.debug(f"Hub output updated: {self.output}")
     
     def get_input_data(self) -> Dict[str, Any]:
-        """Get a copy of all current input data"""
+        """Get all current input data"""
         with self._lock:
             return self.input.copy()
     
     def get_output_data(self) -> List[float]:
-        """Get a copy of current output voltages"""
+        """Get current output voltages"""
         with self._lock:
             return self.output.copy()
     
     def get_state(self) -> Dict[str, Any]:
-        """Get complete hub state"""
-        with self._lock:
-            return {
-                'input': self.input.copy(),
-                'output': self.output.copy(),
-                'task': self.task,
-                'mode': self.mode,
-                'go': self.go,
-                'simulation': self.simulation,
-                'frequency': self.frequency,
-                'last_update': self._last_update_time,
-                'device_type': self.device['type'],
-                'enabled_sensors': list(self.sensors.keys())
-            }
+        """Get current control state"""
+        return {
+            'mode': self.mode,
+            'go': self.go,
+            'task': self.task,
+            'simulation': self.simulation,
+            'frequency': self.frequency,
+            'device_type': self.device['type'],
+            'device_connected': self.is_device_connected(),
+            'last_update': self._last_update_time
+        }
     
+    # State control methods
     def set_mode(self, mode: str):
-        """Set control mode"""
+        """Set control mode (ai, hybrid, manual)"""
         valid_modes = ['ai', 'hybrid', 'manual']
         if mode in valid_modes:
-            with self._lock:
-                old_mode = self.mode
-                self.mode = mode
-                logger.info(f"Mode changed: {old_mode} -> {mode}")
+            old_mode = self.mode
+            self.mode = mode
+            logger.info(f"Mode changed: {old_mode} -> {mode}")
         else:
-            logger.error(f"Invalid mode: {mode}. Valid modes: {valid_modes}")
+            logger.warning(f"Invalid mode: {mode}. Valid modes: {valid_modes}")
     
     def set_go(self, go_state: str):
-        """Set go state"""
+        """Set go state (off, operate, idle, float)"""
         valid_states = ['off', 'operate', 'idle', 'float']
         if go_state in valid_states:
-            with self._lock:
-                old_go = self.go
-                self.go = go_state
-                logger.info(f"Go state changed: {old_go} -> {go_state}")
+            old_go = self.go
+            self.go = go_state
+            logger.info(f"Go state changed: {old_go} -> {go_state}")
         else:
-            logger.error(f"Invalid go state: {go_state}. Valid states: {valid_states}")
+            logger.warning(f"Invalid go state: {go_state}. Valid states: {valid_states}")
     
     def set_task(self, task: Optional[str]):
         """Set current task"""
         valid_tasks = [None, 'take_off', 'land', 'follow', 'back_to_base', 'projectile']
         if task in valid_tasks:
-            with self._lock:
-                old_task = self.task
-                self.task = task
-                logger.info(f"Task changed: {old_task} -> {task}")
+            old_task = self.task
+            self.task = task
+            logger.info(f"Task changed: {old_task} -> {task}")
         else:
-            logger.error(f"Invalid task: {task}. Valid tasks: {valid_tasks}")
+            logger.warning(f"Invalid task: {task}. Valid tasks: {valid_tasks}")
     
     def emergency_stop(self):
-        """Emergency stop - set safe state"""
-        with self._lock:
-            logger.critical("EMERGENCY STOP ACTIVATED")
-            self.mode = 'ai'
-            self.go = 'float'
-            self.task = None
-            self.output = [0.0, 0.0, 0.0, 0.0]  # Zero all engine voltages
+        """Emergency stop - set go state to 'off'"""
+        logger.warning("EMERGENCY STOP activated!")
+        self.set_go('off')
+        if self._device and hasattr(self._device, 'emergency_stop_all'):
+            self._device.emergency_stop_all()
     
     def get_sensor_data(self, sensor_name: str) -> Optional[Dict[str, Any]]:
         """Get data from specific sensor"""
-        with self._lock:
-            return self.input.get(sensor_name)
+        return self.input.get(sensor_name)
     
     def is_device_connected(self) -> bool:
-        """Check if device is connected and working"""
+        """Check if device is connected"""
+        if not self._device:
+            return False
+        
+        # Check device status
         device_status = self.input.get('device_status')
         if device_status:
             return device_status.get('connected', False)
+        
         return False
     
     def get_engine_voltages(self) -> List[float]:
-        """Get current engine voltages"""
-        return self.get_output_data()
+        """Get current engine voltages from device input"""
+        return self.input.get('device_voltages', [0.0, 0.0, 0.0, 0.0])
     
     def validate_data(self) -> Dict[str, bool]:
-        """Validate all input data"""
-        validation = {}
+        """Validate all current data"""
+        validation = {
+            'device_connected': self.is_device_connected(),
+            'has_device_voltages': self.input.get('device_voltages') is not None,
+            'valid_mode': self.mode in ['ai', 'hybrid', 'manual'],
+            'valid_go': self.go in ['off', 'operate', 'idle', 'float'],
+            'valid_task': self.task in [None, 'take_off', 'land', 'follow', 'back_to_base', 'projectile']
+        }
         
-        with self._lock:
-            # Check device data
-            validation['device'] = self.is_device_connected()
-            
-            # Check sensor data
-            for sensor_name in self.sensors.keys():
-                sensor_data = self.input.get(sensor_name)
-                validation[sensor_name] = sensor_data is not None
+        # Check sensor data
+        for sensor_name in self.sensors:
+            if not self.sensors[sensor_name].get('group_sensor', False):
+                validation[f'has_{sensor_name}'] = self.input.get(sensor_name) is not None
         
-        validation['overall'] = all(validation.values())
         return validation
     
     def get_diagnostic_info(self) -> Dict[str, Any]:
-        """Get diagnostic information about hub state"""
-        with self._lock:
-            data_age = time.time() - self._last_update_time
-            
-            return {
-                'data_age_seconds': data_age,
-                'data_fresh': data_age < 1.0,  # Data less than 1 second old
-                'validation': self.validate_data(),
-                'state': self.get_state(),
-                'initialization_complete': self._initialized,
-                'device_initialized': self._device is not None,
-                'sensors_initialized': len(self._sensors),
-                'memory_address': id(self)  # Confirm singleton
-            }
+        """Get comprehensive diagnostic information"""
+        return {
+            'state': self.get_state(),
+            'input_data': {k: v is not None for k, v in self.input.items()},
+            'output_data': self.output,
+            'validation': self.validate_data(),
+            'last_update': self._last_update_time,
+            'timestamp': time.time()
+        }
     
     

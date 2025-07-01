@@ -97,25 +97,26 @@ class DroneSimulator:
             print("⌨️  KEYBOARD CONTROLS")
             print("-" * 40)
             print("🚁 DRONE CONTROL:")
-            print("   SPACE     - Throttle up (increase altitude)")
-            print("   SHIFT     - Throttle down (decrease altitude)")
-            print("   ↑ (UP)    - Pitch forward")
-            print("   ↓ (DOWN)  - Pitch backward")
-            print("   ← (LEFT)  - Roll left")
-            print("   → (RIGHT) - Roll right")
-            print("   A         - Yaw left (rotate left)")
-            print("   D         - Yaw right (rotate right)")
-            print("   ESC       - Emergency stop")
+            print("  SPACE     - Throttle Up")
+            print("  L_SHIFT   - Throttle Down")
+            print("  ↑ ↓ ← →   - Pitch/Roll")
+            print("  A / D     - Yaw Left/Right")
+            print("  ESC       - Emergency Stop")
+            print("  R         - Reset Controls")
             print()
-            print("🖥️  CAMERA CONTROL:")
-            print("   Mouse     - Rotate camera view")
-            print("   Scroll    - Zoom in/out")
-            print("   R         - Reset camera position")
+            print("🎮 MODE CONTROL:")
+            print("  M         - Manual Mode")
+            print("  I         - AI Mode") 
+            print("  H         - Hybrid Mode")
+            print("  O         - Set Go: Operate")
+            print("  P         - Set Go: Idle")
+            print("  T         - Task: Takeoff")
+            print("  L         - Task: Landing")
             print()
-            print("📊 UI TOGGLES:")
-            print("   F1        - Toggle sensor display")
-            print("   F2        - Toggle debug info")
-            print("   F3        - Toggle trajectory display")
+            print("💡 TIPS:")
+            print("  - Press 'O' to enable manual control")
+            print("  - Use 'M' + 'O' for full manual control")
+            print("  - Check console for key press logging")
             print()
         
         if not self.training_mode:
@@ -159,6 +160,15 @@ class DroneSimulator:
             
             # Set hub to operate mode for manual control
             self.hub.set_go('operate')
+            
+            # If user wants manual control by default, set it up
+            if not self.training_mode:
+                print("  🎮 Setting up for manual control...")
+                self.hub.set_mode('manual')
+                self.hub.set_go('operate')
+                print("     → Mode: Manual")
+                print("     → State: Operate") 
+                print("     → Ready for keyboard input!")
             
             print("  ✅ All components initialized successfully!")
             return True
@@ -240,11 +250,56 @@ class DroneSimulator:
         print("🖼️  Launching 3D emulator...")
         
         try:
-            self.emulator.run()
+            # Create a timer for manual polling of keyboard events from main thread
+            import time
+            import logging
+            logger = logging.getLogger(__name__)
+            poll_interval = 1.0 / self.hub.settings.get('GENERAL.poll_frequency', 100)
+            
+            # Start emulator in background thread
+            import threading
+            emulator_thread = threading.Thread(target=self.emulator.run, daemon=True)
+            emulator_thread.start()
+            
+            # Main thread handles keyboard polling to avoid macOS pygame threading issues
+            logger.info("Starting main thread keyboard polling loop...")
+            while not self.shutdown_event.is_set() and emulator_thread.is_alive():
+                # Poll keyboard device from main thread
+                if self.hub._device and hasattr(self.hub._device, 'poll_pygame_safe'):
+                    device_data = self.hub._device.poll_pygame_safe()
+                    if device_data:
+                        # Update hub input directly (same as Poller would do)
+                        if 'voltages' in device_data:
+                            self.hub.input['device_voltages'] = device_data['voltages']
+                        
+                        # Store device status
+                        self.hub.input['device_status'] = {
+                            'connected': device_data.get('connected', True),
+                            'type': device_data.get('device_type', 'unknown'),
+                            'last_update': time.time()
+                        }
+                        
+                        # Handle mode control commands
+                        mode_commands = device_data.get('mode_commands', [])
+                        for cmd in mode_commands:
+                            if cmd['action'] == 'set_mode':
+                                self.hub.set_mode(cmd['value'])
+                            elif cmd['action'] == 'set_go':
+                                self.hub.set_go(cmd['value'])
+                            elif cmd['action'] == 'set_task':
+                                self.hub.set_task(cmd['value'])
+                
+                # Small sleep to maintain poll frequency
+                time.sleep(poll_interval)
+                
         except KeyboardInterrupt:
             print("\n🛑 Simulation stopped by user")
         except Exception as e:
             logger.error(f"Emulator error: {e}")
+        finally:
+            # Ensure emulator stops
+            if hasattr(self, 'emulator') and self.emulator:
+                self.emulator.stop()
     
     def shutdown(self):
         """Shutdown all components gracefully"""

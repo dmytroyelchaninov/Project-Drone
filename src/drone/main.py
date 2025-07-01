@@ -159,8 +159,22 @@ class Drone:
         """Compute manual control from device input"""
         device_voltages = self.hub.input.get('device_voltages')
         
+        # DEBUG: Log what we're getting from the device and full input data
+        if device_voltages is not None:
+            logger.info(f"📡 Device voltages received: {device_voltages}")
+        else:
+            logger.info("❌ No device voltages received")
+            # Log what's actually in the input to debug
+            input_keys = list(self.hub.input.keys())
+            logger.info(f"🔍 Available input keys: {input_keys}")
+            device_status = self.hub.input.get('device_status')
+            if device_status:
+                logger.info(f"🔧 Device status: {device_status}")
+            else:
+                logger.info("🔧 No device status found")
+        
         if device_voltages is None:
-            logger.warning("No device input - switching to float mode")
+            # logger.warning("No device input - switching to float mode")
             return self._compute_float_output()
         
         # Check input freshness
@@ -239,9 +253,29 @@ class Drone:
     
     def _compute_ai_emergency_control(self) -> list:
         """Emergency AI control when danger is detected"""
-        # Emergency response depends on the type of danger
-        # For now, implement emergency landing
-        return self._ai_emergency_landing()
+        hover_voltage = settings.get('DRONE.engines.hover_voltage', 6.0)
+        
+        # Check current altitude
+        try:
+            position = self.physics.state.position
+            altitude = position[2]
+            
+            if altitude <= 0.1:
+                # On or very close to ground - use minimal power
+                emergency_voltage = 0.5  # Just enough to prevent hard impact
+            elif altitude < 1.0:
+                # Close to ground - controlled descent
+                emergency_voltage = hover_voltage * 0.7  # Gentle descent
+            else:
+                # Higher altitude - try to recover first
+                emergency_voltage = hover_voltage * 1.1  # Try to stabilize/hover
+                
+        except Exception:
+            # If we can't get position, use conservative approach
+            emergency_voltage = hover_voltage * 0.8
+        
+        logger.debug(f"Emergency control: voltage={emergency_voltage:.1f}V")
+        return [emergency_voltage] * 4
     
     def _ai_hover_control(self) -> list:
         """AI hover control using sensor feedback"""
@@ -315,12 +349,6 @@ class Drone:
             self.hub.set_go('off')
             return [0.0] * 4
     
-    def _ai_emergency_landing(self) -> list:
-        """Emergency landing procedure"""
-        hover_voltage = settings.get('DRONE.engines.hover_voltage', 6.0)
-        emergency_voltage = hover_voltage * 0.6  # Controlled descent
-        return [emergency_voltage] * 4
-    
     def _ai_follow_control(self) -> list:
         """AI follow mode (placeholder)"""
         # This would implement following a target
@@ -347,7 +375,9 @@ class Drone:
     
     def _check_danger_conditions(self):
         """Check for dangerous conditions that require AI intervention"""
+        # TEMPORARILY DISABLED - FOR TESTING KEYBOARD INPUT
         self._danger_detected = False
+        return
         
         # Check battery voltage (if implemented)
         # Check altitude limits
